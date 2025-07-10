@@ -66,13 +66,6 @@ class Order(models.Model):
         related_name="orders"
     )
 
-    def save(self, *args, **kwargs) -> None:
-        if self.created_at and not self.pk:
-            self._meta.get_field("created_at").auto_now_add = False
-        super().save(*args, **kwargs)
-        if not self._meta.get_field("created_at").auto_now_add:
-            self._meta.get_field("created_at").auto_now_add = True
-
     class Meta:
         ordering = ["-created_at"]
 
